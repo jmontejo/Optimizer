@@ -43,7 +43,7 @@ Algorithm* Algorithm::GetAlgorithm(TString name, TString options, VariablePool *
 }
 
 float Algorithm::DampMC(float bkg_effev){
-	return erf(bkg_effev/100.-1)*0.5 + 0.5; //Veto less than 100 MC events, starts to be notizable at 200 (x 0.92)
+	return erf(bkg_effev/50.-1)*0.5 + 0.5; //Penalize having few MC events, starts to be notizable at 100 (x 0.92) and 50 (x 0.5)
 }
 
 bool Algorithm::checkMetric(float val, float sig, float bkg, float bkg_effev, const Double_t *par){
