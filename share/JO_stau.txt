@@ -1,13 +1,13 @@
 #Expect 1 signal and N backgrouns
-signal	/afs/cern.ch/work/g/guindon/public/Jiashen/mc15_13TeV.393609.MGPy8EG_A14N23LO_StauStau_direct_120p0_1p0_2L8.DAOD_SUSY3.root
-#signal	/afs/cern.ch/work/g/guindon/public/Jiashen/mc15_13TeV.393630.MGPy8EG_A14N23LO_StauStau_direct_180p0_1p0_2L8.DAOD_SUSY3.root
-bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/ttbar.root
-bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/Wjets_enu.root
-bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/Wjets_munu.root
-bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/Wjets_taunu.root
-bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/Zjets_ee.root
-bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/Zjets_mumu.root
-bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/Zjets_tautau.root
+signal	/afs/cern.ch/user/j/jmontejo/public/ForJiashen/StefanNtuples/Stau_120_0/mc15_13TeV.393609.MGPy8EG_A14N23LO_StauStau_direct_120p0_1p0_2L8.DAOD_SUSY3.root
+#sign			/afs/cern.ch/user/j/jmontejo/public/ForJiashen/StefanNtuples/Stau_180_0/mc15_13TeV.393630.MGPy8EG_A14N23LO_StauStau_direct_180p0_1p0_2L8.DAOD_SUSY3.root
+bkg			/afs/cern.ch/user/j/jmontejo/public/ForJiashen/StefanNtuples/ttbar_nom/ttbar.root
+bkg			/afs/cern.ch/user/j/jmontejo/public/ForJiashen/StefanNtuples/Wjets_enu/Wjets_enu.root
+bkg			/afs/cern.ch/user/j/jmontejo/public/ForJiashen/StefanNtuples/Wjets_munu/Wjets_munu.root
+bkg			/afs/cern.ch/user/j/jmontejo/public/ForJiashen/StefanNtuples/Wjets_taunu/Wjets_taunu.root
+bkg			/afs/cern.ch/user/j/jmontejo/public/ForJiashen/StefanNtuples/Zjets_ee/Zjets_ee.root
+bkg			/afs/cern.ch/user/j/jmontejo/public/ForJiashen/StefanNtuples/Zjets_mumu/Zjets_mumu.root
+bkg			/afs/cern.ch/user/j/jmontejo/public/ForJiashen/StefanNtuples/Zjets_tautau/Zjets_tautau.root
 
 tree  export
 tag 	stau120
@@ -17,6 +17,7 @@ round false
 #no spaces in cut!!!
 cut     (n_tau==1)
 weight  (xs_weight*weight)
+displayweight  (xs_weight*weight)
 noCheck false
 #lumi in pb
 lumi    80000
