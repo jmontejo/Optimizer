@@ -40,21 +40,31 @@ the JO, strings can not contain whitespace (and currently quotes are not support
 
 The list of keys used in the JO are:
 
-signal  - specify the path to the signal ntuple. Key can exist only once
-bkg     - specify the path to background ntuples. Several backgrounds can be specified 
+signal  - Specify the path to the signal ntuple. Key can exist only once
+bkg     - Specify the path to background ntuples. Several backgrounds can be specified 
           and will be merged
-tree    - name of the tree in the ntuples. The same tree name is expected in all samples.
+tree    - Name of the tree in the ntuples. The same tree name is expected in all samples.
           The special tree name "sample" can be given when using SampleHandler objects
-          to use the name of the sample.
-tag     - name for the JO. Output folders and files will use this tag
-cut     - preselection cut to be applied. The optimization running time depends strongly
+          to use the name of the sample. Or the name "export" to use the equivalent name
+          in ntuples exported from the stop1L framework
+tag     - Name for the JO. Output folders and files will use this tag
+cut     - Preselection cut to be applied. The optimization running time depends strongly
           on the number of events. Applying preselection cuts speeds up the process.
-weight  - the event-wise weight to be applied in the samples
-lumi    - target luminosity in pb
-syst    - systematic uncertainty to be assumed in the signal region
+weight  - The event-wise weight to be applied in the samples
+lumi    - Target luminosity in pb
+syst    - Systematic uncertainty to be assumed in the signal region
 noCheck - Default false, can be set to true. Asume all variable input names are correct 
           and branches exist. Skips sanity checks
+doPlots - Default true, can be set to false. Produce shape comparison plots between signal
+          and background after preselection.
+round   - Default true, can be set to false. After optimization round the cuts to the
+          step-size defined in "var".
 var     - Takes two values, name of the variable and granularity of rounding. Functions
           and arrays are accepted as variable names (e.g. Sum$(jet_pt) or jet_pt[0]).
           The optimization result is rounded to the specified granularity
           Example: var  jet_pt[0]  5000
+alg     - Algorithms to be used for the optimization, takes two values. Several instances
+          can be specified and will be run one after another. When the root Minimizer is 
+          used a second string of options can be provided separated by semicolons.
+          Example: alg  Minimizer   Minuit2:Migrad:1000000:usePrevBest
+          
