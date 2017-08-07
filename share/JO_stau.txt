@@ -1,0 +1,40 @@
+#Expect 1 signal and N backgrouns
+signal	/afs/cern.ch/work/g/guindon/public/Jiashen/mc15_13TeV.393609.MGPy8EG_A14N23LO_StauStau_direct_120p0_1p0_2L8.DAOD_SUSY3.root
+#signal	/afs/cern.ch/work/g/guindon/public/Jiashen/mc15_13TeV.393630.MGPy8EG_A14N23LO_StauStau_direct_180p0_1p0_2L8.DAOD_SUSY3.root
+bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/ttbar.root
+bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/Wjets_enu.root
+bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/Wjets_munu.root
+bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/Wjets_taunu.root
+bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/Zjets_ee.root
+bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/Zjets_mumu.root
+bkg			/afs/cern.ch/work/g/guindon/public/Jiashen/Zjets_tautau.root
+
+tree  export
+tag 	stau120
+doPlots false
+round false
+
+#no spaces in cut!!!
+cut     (n_tau==1)
+weight  (xs_weight*weight)
+noCheck false
+#lumi in pb
+lumi    80000
+#bkg uncertainty in percentage
+syst    30
+
+var jet_pt[0]							5e3
+var jet_pt[0]-jet_pt[1]							5e3
+var jet_pt[1]-jet_pt[2]							5e3
+var jet_pt[2]-jet_pt[3]							5e3
+var tau_pt[0]								5e3
+var met										10e3
+var mt										10e3
+var dphi_jet0_ptmiss			0.1
+
+alg Minimizer Minuit2:Scan:1000000
+alg Minimizer Minuit2:Simplex:1000000:usePrevBest
+alg Minimizer Minuit2:Migrad:1000000:usePrevBest
+alg Minimizer Genetic:.:100:usePrevBest:round
+#alg DampedScan DampedScan:.:0.5
+#alg DampedScan DampedScan:.:0.9
