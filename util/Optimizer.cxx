@@ -46,6 +46,7 @@ bool seekon=false;
 bool debug = 0;
 TString weight, displayweight;
 float lumi=1., bkgsyst=0.;
+float DampMC_events = 100.;
 
 int main(int argn, char *args[]){
 gROOT->SetBatch(1);
@@ -66,16 +67,18 @@ gROOT->SetBatch(1);
   gInterpreter->GenerateDictionary("ComputeVar","ComputeVar.cxx");
   TString jofile = args[1];
   Options *options = new Options(jofile);
-	if(testrun) options->set("doPlots","false");
-	std::cout << "Parsed options" <<std::endl;
+  if(testrun) options->set("doPlots","false");
+  std::cout << "Parsed options" <<std::endl;
   weight = options->get("weight");
   displayweight = options->get("displayweight");
   bkgsyst = options->get("syst").Atof()/100.;
   lumi = options->get("lumi").Atof();
+  DampMC_events = options->get("MCDamp").Atof();
+
 
 
   TString treename = options->get("tree");
-	std::vector<TString> bkgpaths = options->getBkgs();
+  std::vector<TString> bkgpaths = options->getBkgs();
   TFile *sigfile = TFile::Open(options->get("signal"));
   TChain *bkgchain;
   TChain *sigtree;
@@ -109,7 +112,7 @@ gROOT->SetBatch(1);
 	for(int i=0;i<algorithms.size();i++){
 		auto alg = algorithms.at(i);
 		std::cout << "Running Algorithm: " << alg->name <<std::endl;
-		alg->SetParameters(weight,lumi,bkgsyst,1.,1.,displayweight);
+		alg->SetParameters(weight,lumi,bkgsyst,1.,1.,displayweight,DampMC_events);
 		alg->Execute();
 		c.cd();
 		auto g = alg->getGraph();

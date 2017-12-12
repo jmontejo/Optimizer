@@ -22,7 +22,7 @@ class Algorithm {
 		VariablePool *vars;
 		TString name;
 		void (*theFcn)(Int_t &, Double_t *, Double_t &f, Double_t *, Int_t);
-		void SetParameters(TString weight, float lumi, float bkgsys, float bkgweight=1., float sigweight=1., TString displayweight="");
+		void SetParameters(TString weight, float lumi, float bkgsys, float bkgweight=1., float sigweight=1., TString displayweight="",float DampMC_events = 100.);
 		float BinomialExpZ(const Double_t *par);
 		float BinomialExpZdisplay(const Double_t *par);
 		ROOT::Math::IMultiGenFunction *functor;
@@ -47,6 +47,7 @@ class Algorithm {
 		std::vector<double> max_pars;
 		float bkgsyst, lumi, sigweight, bkgweight;
 		TString weight, displayweight;
+		float DampMC_events;
 		bool debug, round;
 		ROOT::Math::Minimizer* minimizer;
 		int N;

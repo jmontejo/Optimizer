@@ -43,7 +43,11 @@ Algorithm* Algorithm::GetAlgorithm(TString name, TString options, VariablePool *
 }
 
 float Algorithm::DampMC(float bkg_effev){
-	return erf(bkg_effev/50.-1)*0.5 + 0.5; //Penalize having few MC events, starts to be notizable at 100 (x 0.92) and 50 (x 0.5)
+  //return erf(bkg_effev/50.-1)*0.5 + 0.5; //Penalize having few MC events, starts to be notizable at 100 (x 0.92) and 50 (x 0.5)
+  //return erf(bkg_effev/25.-1)*0.5 + 0.5; //Penalize having few MC events, starts to be notizable at 100 (x 0.92) and 50 (x 0.5)
+  //return erf(bkg_effev/5.-1)*0.5 + 0.5; //Penalize having few MC events, starts to be notizable at 100 (x 0.92) and 50 (x 0.5)
+  return erf( (bkg_effev/(DampMC_events*0.5)) -1)*0.5 + 0.5; //Penalize having few MC events, starts to be notizable at 100 (x 0.92) and 50 (x 0.5)
+  
 }
 
 bool Algorithm::checkMetric(float val, float sig, float bkg, float bkg_effev, const Double_t *par){
@@ -172,13 +176,14 @@ void Algorithm::setStartingPoint(bool usePrevBest){
 	}
 }
 
-void Algorithm::SetParameters(TString weight, float lumi, float bkgsyst, float bkgweight, float sigweight, TString displayweight){
+void Algorithm::SetParameters(TString weight, float lumi, float bkgsyst, float bkgweight, float sigweight, TString displayweight,float DampMC_events){
 	this->weight		= weight;	
 	this->lumi 			= lumi;	
 	this->bkgsyst 	= bkgsyst;	
 	this->bkgweight = bkgweight;	
 	this->sigweight = sigweight;	
-	this->displayweight		= displayweight;	
+	this->displayweight		= displayweight;
+	this->DampMC_events = DampMC_events;
 }
 
 void Algorithm::PrintBestPoint(){
