@@ -68,3 +68,17 @@ alg     - Algorithms to be used for the optimization, takes two values. Several 
           used a second string of options can be provided separated by semicolons.
           Example: alg  Minimizer   Minuit2:Migrad:1000000:usePrevBest
           
+
+Batch Submission
+====================
+
+In batch folder there is an example of batch submission script. At the moment the list of files that are going to be processed is hardcoded (to-do-fix)
+The script accept the following options:
+
+--optVars "var1:step1,var2:step2"     Comma separated list of variables to run the optimisation with with the step. Example:
+--optDampMC 100.                      Limit for MC damping. It is effectively the BKG statistics of the SR
+--presel  "cut1<10,cut2==5,cut3>1"    Root Tree-like comma separated list of cuts to apply at preselection level, before the optimisation
+--optName "name"                      Job/Optimisation Tag Name
+--optIters 100                        Number of iterations for the genetic algorithm
+--queue    1nh                        Queue where to submit the jobs
+--submit                              Submit the jobs
